@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import Abelardo.word.Camera;
+import Abelardo.word.Word;
 import Game.Game;
 
 
@@ -78,8 +79,8 @@ public class Player extends Entity{
 			}
 		}
 		
-		Camera.x = this.x - (Game.WIDTH/2);
-		Camera.y = this.y - (Game.HEIGHT/2);
+		Camera.x = Camera.clamp(this.x - (Game.WIDTH/2),0, Word.WIDTH * 16 -Game.WIDTH);
+		Camera.y = Camera.clamp(this.y - (Game.HEIGHT/2),0, Word.HEIGHT * 16-Game.HEIGHT);
 		
 	}
 	
