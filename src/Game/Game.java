@@ -10,11 +10,13 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JFrame;
 
 import Abelardo.Graficos.Spritesheet;
 import Abelardo.entities.Entity;
+import Abelardo.entities.Inimigo;
 import Abelardo.entities.Player;
 import Abelardo.word.Word;
 
@@ -43,9 +45,12 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	
 	private BufferedImage image;
 	public static List<Entity> entities;
+	public static List<Inimigo> inimigos;
+	
+	public static Random rand;
 	
 	public Game(){
-
+		rand = new Random();
 		this.addKeyListener(this);
 		this.setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
 		initFrame();
@@ -53,6 +58,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		entities = new ArrayList<Entity>();
+		inimigos = new ArrayList<Inimigo>();
 		spritesheet = new Spritesheet("/spritesheet.png");
 		player = new Player(0,0,16,16,spritesheet.getSprite(32, 0, 12, 16));
 		entities.add(player);

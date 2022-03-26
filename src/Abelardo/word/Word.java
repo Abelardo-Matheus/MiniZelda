@@ -18,6 +18,7 @@ public class Word {
 	public static int WIDTH, HEIGHT; 
 	public static final int TILE_SIZE = 16;
 	
+	
 	public Word(String path) {
 		try {
 			BufferedImage map = ImageIO.read(getClass().getResource(path));
@@ -60,7 +61,10 @@ public class Word {
 							Game.entities.add(new Anel(xx*16, yy*16, 16, 16,Entity.ANEL_EN));
 						}else if(pixelatual== 0xFFFF0000) {
 							//inimigo
-							Game.entities.add(new Inimigo(xx*16, yy*16, 16, 16,Entity.INIMIGO_EN));
+							Inimigo en = new Inimigo(xx*16, yy*16, 14, 15,Entity.INIMIGO_EN);
+							Game.entities.add(en);
+							Game.inimigos.add(en);
+							
 						}else if(pixelatual== 0xFF3AFFEB) {
 							//carga
 							Game.entities.add(new Carga(xx*16, yy*16, 16, 16,Entity.CARGAS_EN ));
