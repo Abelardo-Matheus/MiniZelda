@@ -6,6 +6,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import Abelardo.entities.Anel;
+import Abelardo.entities.Carga;
+import Abelardo.entities.Entity;
+import Abelardo.entities.Inimigo;
+import Game.Game;
+
 public class Word {
 	
 	private Tiles[] tiles;
@@ -22,6 +28,7 @@ public class Word {
 				for(int xx = 0 ;xx < map.getWidth();xx++) {
 					for(int yy = 0;yy < map.getHeight();yy++) {
 						int pixelatual = pixels[xx+(yy*map.getWidth())];
+						tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_CHAO);
 						if(pixelatual == 0xFF000000) {
 							//chão
 							tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_CHAO);
@@ -30,7 +37,17 @@ public class Word {
 							tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_PAREDE);
 						}else if(pixelatual== 0xFF0800FF) {
 							//player
-							tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_CHAO);
+							Game.player.setX(xx*16);
+							Game.player.setY(yy*16);
+						}else if(pixelatual== 0xFFFF0AFF) {
+							//anel
+							Game.entities.add(new Anel(xx*16, yy*16, 16, 16,Entity.ANEL_EN));
+						}else if(pixelatual== 0xFFFF0000) {
+							//inimigo
+							Game.entities.add(new Inimigo(xx*16, yy*16, 16, 16,Entity.INIMIGO_EN));
+						}else if(pixelatual== 0xFF3AFFEB) {
+							//carga
+							Game.entities.add(new Carga(xx*16, yy*16, 16, 16,Entity.CARGAS_EN));
 						}else {
 							//chão
 							tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_CHAO);

@@ -33,7 +33,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	private final int WIDTH = 240;
 	private final int HEIGHT = 160;
 	private final int SCALE = 3;
-	private Player player;
+	public static Player player;
 
 	private Graphics g;
 	
@@ -42,7 +42,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	public static Word word;
 	
 	private BufferedImage image;
-	public List<Entity> entities;
+	public static List<Entity> entities;
 	
 	public Game(){
 
@@ -54,9 +54,9 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		entities = new ArrayList<Entity>();
 		spritesheet = new Spritesheet("/spritesheet.png");
-		word = new Word("/map.png");
 		player = new Player(0,0,16,16,spritesheet.getSprite(32, 0, 16, 16));
 		entities.add(player);
+		word = new Word("/map.png");
 		 
 		
 		}

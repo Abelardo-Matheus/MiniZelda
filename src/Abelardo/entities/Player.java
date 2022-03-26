@@ -43,6 +43,8 @@ public class Player extends Entity{
 	
 	
 	
+	
+	
 	public void tick() {
 		moved = false;
 		if(right==true) {
@@ -86,6 +88,11 @@ public class Player extends Entity{
 				
 			}
 	}
+
+
+
+
+
 	
 	
 	
