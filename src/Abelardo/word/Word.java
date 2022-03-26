@@ -78,7 +78,7 @@ public class Word {
 	}
 	
 	public static boolean isFree(int xNext, int yNext) {
-		int x1 = xNext/ TILE_SIZE;
+		int x1 = xNext / TILE_SIZE;
 		int y1 = yNext /TILE_SIZE;
 		
 		int x2 = (xNext+TILE_SIZE-1)/ TILE_SIZE;
@@ -91,7 +91,7 @@ public class Word {
 		int y4 = (yNext+TILE_SIZE-1) / TILE_SIZE;
 		
 		return !((tiles[x1 + (y1 * Word.WIDTH)] instanceof ParedeTile) ||
-				(tiles[x2 + (y2 * Word.WIDTH)] instanceof ParedeTile) ||
+				(tiles[x2 + (y2 * Word.WIDTH)] instanceof ParedeTile)||
 				(tiles[x3 + (y3 * Word.WIDTH)] instanceof ParedeTile)||
 				(tiles[x4 + (y4 * Word.WIDTH)] instanceof ParedeTile));
 		
