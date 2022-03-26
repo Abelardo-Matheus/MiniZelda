@@ -50,10 +50,11 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		this.setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
 		initFrame();
 		
-		word = new Word("/map.png");
+		
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		entities = new ArrayList<Entity>();
 		spritesheet = new Spritesheet("/spritesheet.png");
+		word = new Word("/map.png");
 		player = new Player(0,0,16,16,spritesheet.getSprite(32, 0, 16, 16));
 		entities.add(player);
 		 
@@ -115,6 +116,8 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH*SCALE, HEIGHT*SCALE);
 		
+		
+		word.render(g);
 		for (int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
 			e.render(g);
