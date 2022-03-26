@@ -13,7 +13,7 @@ public class Entity {
 	
 	public static BufferedImage VIDA_EN = Game.spritesheet.getSprite(95, 0, 16, 14);
 	public static BufferedImage ANEL_EN = Game.spritesheet.getSprite(114, 2, 12, 12);
-	public static BufferedImage INIMIGO_EN = Game.spritesheet.getSprite(112, 18, 15, 14);
+	public static BufferedImage INIMIGO_EN = Game.spritesheet.getSprite(95, 35, 15, 15);
 	public static BufferedImage CARGAS_EN = Game.spritesheet.getSprite(96, 17, 16, 15);
 	
 	

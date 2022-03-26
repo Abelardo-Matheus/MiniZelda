@@ -13,18 +13,25 @@ public class Inimigo extends Entity {
 	
 	private double spd = 1;
 	
-	private int maskx =8, masky = 8,maskw =10, maskh=10;
+	private int maskx =0, masky = 0,maskw =15, maskh=15;
+	private int frames = 0, maxframes = 5, index = 0, maxindex = 3;
+	private BufferedImage[] sprites;
 
 	public Inimigo(int x, int y, int width, int heigth, BufferedImage sprite) {
-		super(x, y, width, heigth, sprite);
+		super(x, y, width, heigth, null);
+		sprites = new BufferedImage[4];
+		sprites[0] = Game.spritesheet.getSprite(95, 36, 15, 14);
+		sprites[1] = Game.spritesheet.getSprite(111, 36, 15, 14);
+		sprites[2] = Game.spritesheet.getSprite(127, 36, 15, 14);
+		sprites[3] = Game.spritesheet.getSprite(143, 36, 15, 14);
 	}
 	
 	public void tick() {
 		
-		maskx = 0;
-		masky = 0;
-		maskw = 15;
-		maskh = 15;
+		//maskx = 0;
+		//masky = 0;
+		//maskw = 15;
+		//maskh = 15;
 		
 		if((int)x < Game.player.getX() && Word.isFree((int)(x+spd), this.getY())
 				&& !isColliding((int)(x+spd), this.getY())) {
@@ -39,7 +46,20 @@ public class Inimigo extends Entity {
 				&& !isColliding(this.getX(), (int)(y-spd))) {
 			y-=spd;
 		}
+		
+
+			frames++;
+			if(frames==maxframes) {
+				frames=0;
+				index++;
+				if(index>maxindex) {
+					index=0;
+				}
+			}
+		
 	}
+	
+	
 		
 	public boolean isColliding(int xNext, int yNext) {
 		Rectangle inimigoCurrent = new Rectangle(xNext + maskx,yNext + masky,maskw, maskh);
@@ -55,13 +75,17 @@ public class Inimigo extends Entity {
 			
 		}
 		
+		
 		return false;
 	}
 	
 	public void render(Graphics g) {
-		super.render(g);
-		g.setColor(Color.red);
-		g.fillRect(this.getX() + maskx - Camera.x,this.getY() + masky - Camera.y, maskw, maskh);
+		
+		g.drawImage(sprites[index], this.getX() - Camera.x,this.getY()-Camera.y, null);
+		
+		
+		//g.setColor(Color.red);
+		//g.fillRect(this.getX() + maskx - Camera.x,this.getY() + masky - Camera.y, maskw, maskh);
 		
 	}
 
