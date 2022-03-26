@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import Abelardo.word.Camera;
 import Game.Game;
 
 
@@ -77,13 +78,16 @@ public class Player extends Entity{
 			}
 		}
 		
+		Camera.x = this.x - (Game.WIDTH/2);
+		Camera.y = this.y - (Game.HEIGHT/2);
+		
 	}
 	
 	public void render(Graphics g) {
 		if(dir == direito_dir){
-		g.drawImage(DireitoP[index], this.getX(),this.getY(), null);
+		g.drawImage(DireitoP[index], this.getX() - Camera.x,this.getY() - Camera.y, null);
 		}else if(dir == esquerdo_dir){
-			g.drawImage(EsquerdoP[index], this.getX(),this.getY(), null);
+			g.drawImage(EsquerdoP[index], this.getX() - Camera.x,this.getY() - Camera.y, null);
 			}else {
 				
 			}

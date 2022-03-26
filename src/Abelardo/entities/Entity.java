@@ -3,6 +3,7 @@ package Abelardo.entities;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import Abelardo.word.Camera;
 import Game.Game;
 
 public class Entity {
@@ -48,7 +49,7 @@ public class Entity {
 	
 	
 	public void render(Graphics g) {
-		g.drawImage(sprite,this.getX(),this.getY(), null);
+		g.drawImage(sprite,this.getX() - Camera.x,this.getY() - Camera.y, null);
 	}
 	
 	public void tick() {

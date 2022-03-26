@@ -32,10 +32,25 @@ public class Word {
 						if(pixelatual == 0xFF000000) {
 							//chão
 							tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_CHAO);
+						}else if(pixelatual== 0xFF979E9C) {
+							//parede Esquerda
+							tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_PAREDEE);
 						}else if(pixelatual== 0xFFFFFFFF) {
-							//parede
-							tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_PAREDE);
-						}else if(pixelatual== 0xFF0800FF) {
+							//parede LAVA
+							tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_PAREDEL);
+						}else if(pixelatual== 0xFF9B9988) {
+							//parede CIMA
+							tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_PAREDEC);
+						}else if(pixelatual== 0xFF998D6E) {
+							//parede BAIXO
+							tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_PAREDEB);
+						}else if(pixelatual== 0xFF00083D) {
+							//parede CANTO
+							tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_PAREDECANTO);
+						}else if(pixelatual== 0xFF3B3F3F) {
+							//parede direita
+							tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_PAREDED);
+						}else if(pixelatual== 0xFFFF0AFF) {
 							//player
 							Game.player.setX(xx*16);
 							Game.player.setY(yy*16);
@@ -47,7 +62,7 @@ public class Word {
 							Game.entities.add(new Inimigo(xx*16, yy*16, 16, 16,Entity.INIMIGO_EN));
 						}else if(pixelatual== 0xFF3AFFEB) {
 							//carga
-							Game.entities.add(new Carga(xx*16, yy*16, 16, 16,Entity.CARGAS_EN));
+							Game.entities.add(new Carga(xx*16, yy*16, 16, 16,Entity.CARGAS_EN ));
 						}else {
 							//chão
 							tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_CHAO);
