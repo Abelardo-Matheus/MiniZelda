@@ -15,7 +15,7 @@ public class Player extends Entity{
 	public boolean right ,up,down , left ;
 	public int direito_dir = 0,esquerdo_dir = 1;
 	public int dir = direito_dir;
-	public int spd = 2;
+	public double spd = 2;
 	
 	private int frames = 0, maxframes = 10, index = 0, maxindex = 3;
 	private boolean moved = false;
@@ -49,21 +49,21 @@ public class Player extends Entity{
 	
 	public void tick() {
 		moved = false;
-		if(right==true) {
+		if(right==true && Word.isFree((int)(x+spd),this.getY())) {
 			moved = true;
 			dir = direito_dir;
 			x+=spd;
 			
-		}else if(left==true) {
+		}else if(left==true && Word.isFree((int)(x-spd),this.getY())) {
 			moved = true;
 			dir = esquerdo_dir;
 			 x-=spd;
 		}
 		
-		if(up==true) {
+		if(up==true && Word.isFree(this.getX(),(int)(y-spd))) {
 			moved = true;
 			y-=spd;
-		}else if(down==true) {
+		}else if(down==true && Word.isFree(this.getX(),(int)(y+spd))) {
 			moved = true;
 			 y+=spd;
 		}

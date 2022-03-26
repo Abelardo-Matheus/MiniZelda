@@ -14,8 +14,9 @@ import Game.Game;
 
 public class Word {
 	
-	private Tiles[] tiles;
+	public static Tiles[] tiles;
 	public static int WIDTH, HEIGHT; 
+	public static final int TILE_SIZE = 16;
 	
 	public Word(String path) {
 		try {
@@ -34,22 +35,22 @@ public class Word {
 							tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_CHAO);
 						}else if(pixelatual== 0xFF979E9C) {
 							//parede Esquerda
-							tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_PAREDEE);
+							tiles[xx + (yy*map.getWidth())] = new ParedeTile(xx*16,yy*16, Tiles.TILE_PAREDEE);
 						}else if(pixelatual== 0xFFFFFFFF) {
 							//parede LAVA
-							tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_PAREDEL);
+							tiles[xx + (yy*map.getWidth())] = new ParedeTile(xx*16,yy*16, Tiles.TILE_PAREDEL);
 						}else if(pixelatual== 0xFF9B9988) {
 							//parede CIMA
-							tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_PAREDEC);
+							tiles[xx + (yy*map.getWidth())] = new ParedeTile(xx*16,yy*16, Tiles.TILE_PAREDEC);
 						}else if(pixelatual== 0xFF998D6E) {
 							//parede BAIXO
-							tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_PAREDEB);
+							tiles[xx + (yy*map.getWidth())] = new ParedeTile(xx*16,yy*16, Tiles.TILE_PAREDEB);
 						}else if(pixelatual== 0xFF00083D) {
 							//parede CANTO
-							tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_PAREDECANTO);
+							tiles[xx + (yy*map.getWidth())] = new ParedeTile(xx*16,yy*16, Tiles.TILE_PAREDECANTO);
 						}else if(pixelatual== 0xFF3B3F3F) {
 							//parede direita
-							tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_PAREDED);
+							tiles[xx + (yy*map.getWidth())] = new ParedeTile(xx*16,yy*16, Tiles.TILE_PAREDED);
 						}else if(pixelatual== 0xFFFF0AFF) {
 							//player
 							Game.player.setX(xx*16);
@@ -73,6 +74,26 @@ public class Word {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+	}
+	
+	public static boolean isFree(int xNext, int yNext) {
+		int x1 = xNext/ TILE_SIZE;
+		int y1 = yNext /TILE_SIZE;
+		
+		int x2 = (xNext+TILE_SIZE-1)/ TILE_SIZE;
+		int y2 = yNext /TILE_SIZE;
+		
+		int x3 = xNext /TILE_SIZE;
+		int y3 = (yNext+TILE_SIZE-1) / TILE_SIZE;
+		
+		int x4 = (xNext+TILE_SIZE-1) / TILE_SIZE;
+		int y4 = (yNext+TILE_SIZE-1) / TILE_SIZE;
+		
+		return !((tiles[x1 + (y1 * Word.WIDTH)] instanceof ParedeTile) ||
+				(tiles[x2 + (y2 * Word.WIDTH)] instanceof ParedeTile) ||
+				(tiles[x3 + (y3 * Word.WIDTH)] instanceof ParedeTile)||
+				(tiles[x4 + (y4 * Word.WIDTH)] instanceof ParedeTile));
 		
 	}
 	
