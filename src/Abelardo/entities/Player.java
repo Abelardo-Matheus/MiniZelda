@@ -17,7 +17,7 @@ public class Player extends Entity{
 	public int dir = direito_dir;
 	private double spd = 1.6;
 	
-	public int vida = 200;
+	public static double Maxvida = 100,vida =200;
 	
 	private int frames = 0, maxframes = 10, index = 0, maxindex = 3;
 	private boolean moved = false;

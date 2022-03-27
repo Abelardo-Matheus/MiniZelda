@@ -51,10 +51,10 @@ public class Inimigo extends Entity {
 		}else {
 			if(Game.rand.nextInt(100)<50) {
 			Game.player.vida -= dano;
-			
+			System.out.println(Game.player.vida);
 			}if(Game.player.vida == 0) {
 				System.out.println("murreo");
-				System.exit(1);
+				//System.exit(1);
 			}
 		}
 		

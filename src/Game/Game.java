@@ -15,6 +15,7 @@ import java.util.Random;
 import javax.swing.JFrame;
 
 import Abelardo.Graficos.Spritesheet;
+import Abelardo.Graficos.UI;
 import Abelardo.entities.Entity;
 import Abelardo.entities.Inimigo;
 import Abelardo.entities.Player;
@@ -49,13 +50,15 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	
 	public static Random rand;
 	
+	public UI ui;
+	
 	public Game(){
 		rand = new Random();
 		this.addKeyListener(this);
 		this.setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
 		initFrame();
 		
-		
+		ui = new UI();
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		entities = new ArrayList<Entity>();
 		inimigos = new ArrayList<Inimigo>();
@@ -127,7 +130,9 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		for (int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
 			e.render(g);
+			
 		}
+		ui.render(g);
 		
 		g.dispose();// Limpar dados de imagem n�o usados
 		g = bs.getDrawGraphics();
