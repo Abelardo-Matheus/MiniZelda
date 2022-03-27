@@ -4,8 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
-
+import Abelardo.Graficos.Spritesheet;
 import Abelardo.word.Camera;
 import Abelardo.word.Word;
 import Game.Game;
@@ -25,6 +26,13 @@ public class Player extends Entity{
 	private BufferedImage[] DireitoP;
 	private BufferedImage[] EsquerdoP;
 	
+	private BufferedImage DanoPS;
+	private BufferedImage DanoPD;
+	private int DanoFrames = 0 ;
+	
+	
+	public static boolean IsDano = false;
+	
 	public static int carga = 0 , cargatotal = 100;
 	
 	public Player(int x, int y,int width, int heigth, BufferedImage sprite) {
@@ -32,6 +40,8 @@ public class Player extends Entity{
 		
 		DireitoP = new BufferedImage[4];
 		EsquerdoP = new BufferedImage[4];
+		DanoPD = Game.spritesheet.getSprite(98, 0, 12, 16);
+		DanoPS = Game.spritesheet.getSprite(115, 0, 12, 16);
 		
 		DireitoP[0] = Game.spritesheet.getSprite(34, 0, 12, 16);
 		DireitoP[1] = Game.spritesheet.getSprite(50, 0, 12, 16);
@@ -46,8 +56,7 @@ public class Player extends Entity{
 	}
 	
 	
-	
-	
+
 	
 	
 	public void tick() {
@@ -84,6 +93,21 @@ public class Player extends Entity{
 		
 		this.checkCollisionVida();
 		this.checkColisionCarga();
+		if(IsDano) {
+			this.DanoFrames++;
+			if(this.DanoFrames == 10) {
+				this.DanoFrames = 0;
+				IsDano = false;
+			}
+		}if(Game.player.vida <= 0) {
+			Game.entities = new ArrayList<Entity>();
+			Game.inimigos = new ArrayList<Inimigo>();
+			Game.spritesheet = new Spritesheet("/spritesheet.png");
+			Game.player = new Player(0,0,16,16,Game.spritesheet.getSprite(32, 0, 12, 16));
+			Game.entities.add(Game.player);
+			Game.word = new Word("/map.png");
+			return;
+		}
 		
 		Camera.x = Camera.clamp(this.x - (Game.WIDTH/2),0, Word.WIDTH * 16 -Game.WIDTH);
 		Camera.y = Camera.clamp(this.y - (Game.HEIGTH/2),0, Word.HEIGTH * 16-Game.HEIGTH);
@@ -124,11 +148,18 @@ public class Player extends Entity{
 	}
 	
 	public void render(Graphics g) {
+		if(!IsDano) {
 		if(dir == direito_dir){
 		g.drawImage(DireitoP[index], this.getX()+4 - Camera.x,this.getY() - Camera.y, null);
 		}else if(dir == esquerdo_dir){
 			g.drawImage(EsquerdoP[index], this.getX() - Camera.x,this.getY() - Camera.y, null);
-			
+		}
+		
+		
+	}else if(IsDano = true && dir == direito_dir){
+		g.drawImage(DanoPD, this.getX()+4-Camera.x, this.getY()-Camera.y, null);
+	}else if(IsDano = true && dir == esquerdo_dir) {
+		g.drawImage(DanoPS, this.getX()-Camera.x, this.getY()-Camera.y, null);
 	}
 
 
