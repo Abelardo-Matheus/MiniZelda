@@ -10,6 +10,7 @@ import Abelardo.entities.Anel;
 import Abelardo.entities.Carga;
 import Abelardo.entities.Entity;
 import Abelardo.entities.Inimigo;
+import Abelardo.entities.Vida;
 import Game.Game;
 
 public class Word {
@@ -52,10 +53,14 @@ public class Word {
 						}else if(pixelatual== 0xFF3B3F3F) {
 							//parede direita
 							tiles[xx + (yy*map.getWidth())] = new ParedeTile(xx*16,yy*16, Tiles.TILE_PAREDED);
-						}else if(pixelatual== 0xFFFF0AFF) {
+						}else if(pixelatual== 0xFF0800FF) {
 							//player
 							Game.player.setX(xx*16);
 							Game.player.setY(yy*16);
+						}else if(pixelatual== 0xFFFFBFC1) {
+							//vida
+							Game.entities.add(new Vida(xx*16, yy*16, 16, 16,Entity.VIDA_EN));
+							//System.out.println("cu");
 						}else if(pixelatual== 0xFFFF0AFF) {
 							//anel
 							Game.entities.add(new Anel(xx*16, yy*16, 16, 16,Entity.ANEL_EN));
@@ -67,7 +72,7 @@ public class Word {
 							
 						}else if(pixelatual== 0xFF3AFFEB) {
 							//carga
-							Game.entities.add(new Carga(xx*16, yy*16, 16, 16,Entity.CARGAS_EN ));
+							Game.entities.add(new Carga(xx*16, yy*16, 16, 16,Entity.CARGAS_EN));
 						}else {
 							//chão
 							tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_CHAO);

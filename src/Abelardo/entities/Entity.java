@@ -11,10 +11,10 @@ public class Entity {
 	protected int x, y, width, heigth;
 	private BufferedImage sprite;
 	
-	public static BufferedImage VIDA_EN = Game.spritesheet.getSprite(95, 0, 16, 14);
-	public static BufferedImage ANEL_EN = Game.spritesheet.getSprite(114, 2, 12, 12);
+	public static BufferedImage VIDA_EN = Game.spritesheet.getSprite(97, 20, 14, 12);
+	public static BufferedImage ANEL_EN = Game.spritesheet.getSprite(115, 3, 10, 10);
 	public static BufferedImage INIMIGO_EN = Game.spritesheet.getSprite(95, 35, 15, 15);
-	public static BufferedImage CARGAS_EN = Game.spritesheet.getSprite(96, 17, 16, 15);
+	public static BufferedImage CARGAS_EN = Game.spritesheet.getSprite(62, 53, 21, 15);
 	
 	
 	
