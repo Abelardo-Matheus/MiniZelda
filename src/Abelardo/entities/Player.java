@@ -25,8 +25,7 @@ public class Player extends Entity{
 	private BufferedImage[] DireitoP;
 	private BufferedImage[] EsquerdoP;
 	
-	
-	
+	public static int carga = 0;
 	
 	public Player(int x, int y,int width, int heigth, BufferedImage sprite) {
 		super(x ,y, width, heigth,sprite);
@@ -84,19 +83,35 @@ public class Player extends Entity{
 		}
 		
 		this.checkCollisionVida();
+		this.checkColisionCarga();
 		
 		Camera.x = Camera.clamp(this.x - (Game.WIDTH/2),0, Word.WIDTH * 16 -Game.WIDTH);
 		Camera.y = Camera.clamp(this.y - (Game.HEIGTH/2),0, Word.HEIGTH * 16-Game.HEIGTH);
 		
 	}
+	
+	public void checkColisionCarga() {
+		for(int i = 0; i < Game.entities.size(); i++) {
+			Entity e = Game.entities.get(i);
+			if(e instanceof Carga) {
+				if(Entity.isColliding(this, e)) {
+					carga+=2;
+					Game.entities.remove(i);
+
+				}
+			}
+		}
+	}
+	
+	
 	public void checkCollisionVida() {
 		for(int i = 0; i < Game.entities.size(); i++) {
 			Entity e = Game.entities.get(i);
 			if(e instanceof Vida) {
 				if(Entity.isColliding(this, e)) {
-					vida+=60;
-					if(vida >= 100) {
-						vida = 100;
+					vida+=80;
+					if(vida >= 200) {
+						vida = 200;
 					}
 					Game.entities.remove(i);
 					return;

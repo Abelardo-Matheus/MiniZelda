@@ -3,6 +3,7 @@ package Game;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -137,6 +138,9 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		g.dispose();// Limpar dados de imagem n�o usados
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGTH * SCALE, null);
+		//g.setFont(new Font("Arial", Font.BOLD, 25));
+		//g.setColor(Color.white);
+		//g.drawString("Cargas:" + player.carga, 10,465);
 		bs.show();
 
 
