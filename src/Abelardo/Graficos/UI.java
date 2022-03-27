@@ -33,12 +33,17 @@ public class UI {
 
 	        g2d.setColor(Color.red);
 	        
-	        rect1 = new Rectangle2D.Double(140, 50, 10,(+Player.carga*4));
+	        rect1 = new Rectangle2D.Double(140, 50, 10,(+Player.carga)/2);
 	        g2d.rotate(3.14,80, 100);
 	        g2d.fill(rect1);
 	        g2d.draw(rect1);
+	        
+	        for(int i = 0; i < (+Player.cargatotal/2); i+=5){
+	        g.setColor(new Color(255, 140, 0));    
+	        g.drawRect(140, 50, 10, i);
 	    
-	          
+	        }g.setColor(Color.white);    
+	        g.drawRect(140, 50, 10, (+Player.cargatotal/2));
 	         
 	    
 	    

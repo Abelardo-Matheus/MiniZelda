@@ -25,7 +25,7 @@ public class Player extends Entity{
 	private BufferedImage[] DireitoP;
 	private BufferedImage[] EsquerdoP;
 	
-	public static int carga = 0;
+	public static int carga = 0 , cargatotal = 100;
 	
 	public Player(int x, int y,int width, int heigth, BufferedImage sprite) {
 		super(x ,y, width, heigth,sprite);
@@ -95,7 +95,10 @@ public class Player extends Entity{
 			Entity e = Game.entities.get(i);
 			if(e instanceof Carga) {
 				if(Entity.isColliding(this, e)) {
-					carga+=2;
+					carga+=10;
+					if(carga >= cargatotal) {
+						carga = cargatotal;
+					}
 					Game.entities.remove(i);
 
 				}
