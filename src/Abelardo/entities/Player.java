@@ -15,12 +15,15 @@ public class Player extends Entity{
 	public boolean right ,up,down , left ;
 	public int direito_dir = 0,esquerdo_dir = 1;
 	public int dir = direito_dir;
-	public int spd = 2;
+	private double spd = 1.6;
+	
+	public int vida = 200;
 	
 	private int frames = 0, maxframes = 10, index = 0, maxindex = 3;
 	private boolean moved = false;
 	private BufferedImage[] DireitoP;
 	private BufferedImage[] EsquerdoP;
+	
 	
 	
 	
@@ -79,8 +82,8 @@ public class Player extends Entity{
 			}
 		}
 		
-		Camera.x = Camera.clamp(this.x - (Game.WIDTH/2),0, Word.WIDTH * 16 -Game.WIDTH);
-		Camera.y = Camera.clamp(this.y - (Game.HEIGHT/2),0, Word.HEIGHT * 16-Game.HEIGHT);
+		Camera.x = Camera.clamp((int)this.x - (Game.WIDTH/2),0, Word.WIDTH * 16 -Game.WIDTH);
+		Camera.y = Camera.clamp((int)this.y - (Game.HEIGHT/2),0, Word.HEIGHT * 16-Game.HEIGHT);
 		
 	}
 	

@@ -8,20 +8,20 @@ import Game.Game;
 
 public class Entity {
 	
-	protected int x, y, width, heigth;
+	protected double x, y, width, heigth;
 	private BufferedImage sprite;
 	
 	public static BufferedImage VIDA_EN = Game.spritesheet.getSprite(97, 20, 14, 12);
 	public static BufferedImage ANEL_EN = Game.spritesheet.getSprite(115, 3, 10, 10);
 	public static BufferedImage INIMIGO_EN = Game.spritesheet.getSprite(95, 35, 15, 15);
-	public static BufferedImage CARGAS_EN = Game.spritesheet.getSprite(62, 53, 21, 15);
+	public static BufferedImage CARGAS_EN = Game.spritesheet.getSprite(62, 53, 16, 15);
 	
 	
 	
 	
-	public Entity(int x,int y,int width,int heigth, BufferedImage sprite) {
-		this.x = x;
-		this.y = y;
+	public Entity(double x,double y,int width,int heigth, BufferedImage sprite) {
+		this.x = (int) x;
+		this.y = (int) y;
 		this.width = width;
 		this.heigth = heigth;
 		this.sprite = sprite;
