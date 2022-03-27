@@ -16,7 +16,7 @@ import Game.Game;
 public class Word {
 	
 	public static Tiles[] tiles;
-	public static int WIDTH, HEIGHT; 
+	public static int WIDTH, HEIGTH; 
 	public static final int TILE_SIZE = 16;
 	
 	
@@ -25,7 +25,7 @@ public class Word {
 			BufferedImage map = ImageIO.read(getClass().getResource(path));
 			int[] pixels = new int[map.getWidth() * map.getHeight()];
 			WIDTH = map.getWidth();
-			HEIGHT = map.getHeight();
+			HEIGTH = map.getHeight();
 			tiles = new Tiles[map.getWidth() * map.getHeight()];
 			map.getRGB(0, 0, map.getWidth(), map.getHeight(), pixels, 0, map.getWidth());
 				for(int xx = 0 ;xx < map.getWidth();xx++) {
@@ -59,7 +59,9 @@ public class Word {
 							Game.player.setY(yy*16);
 						}else if(pixelatual== 0xFFFFBFC1) {
 							//vida
-							Game.entities.add(new Vida(xx*16, yy*16, 16, 16,Entity.VIDA_EN));
+							Vida vida = new Vida(xx*16, yy*16, 16, 16,Entity.VIDA_EN);
+
+							Game.entities.add(vida);
 							//System.out.println("cu");
 						}else if(pixelatual== 0xFFFF0AFF) {
 							//anel
@@ -112,11 +114,11 @@ public class Word {
 		int ystart = Camera.y >> 4;
 		
 		int xfinal = xstart + (Game.WIDTH >> 4);
-		int yfinal = ystart + (Game.HEIGHT >> 4);
+		int yfinal = ystart + (Game.HEIGTH >> 4);
 		
 		for(int xx = xstart; xx <= xfinal; xx++) {
 			for(int yy = ystart; yy <= yfinal; yy++) {
-				if(xx < 0 || yy < 0 || xx >= WIDTH || yy >= HEIGHT) 
+				if(xx < 0 || yy < 0 || xx >= WIDTH || yy >= HEIGTH) 
 					continue;
 				Tiles tile = tiles[xx + (yy * WIDTH)];
 				tile.render(g);

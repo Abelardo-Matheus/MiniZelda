@@ -34,7 +34,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	private Thread thread;
 	private boolean isRunning = true;
 	public final static int WIDTH = 240;
-	public final static  int HEIGHT = 160;
+	public final static  int HEIGTH = 160;
 	private final int SCALE = 3;
 	public static Player player;
 
@@ -55,11 +55,11 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	public Game(){
 		rand = new Random();
 		this.addKeyListener(this);
-		this.setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
+		this.setPreferredSize(new Dimension(WIDTH*SCALE, HEIGTH*SCALE));
 		initFrame();
 		
 		ui = new UI();
-		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+		image = new BufferedImage(WIDTH, HEIGTH, BufferedImage.TYPE_INT_RGB);
 		entities = new ArrayList<Entity>();
 		inimigos = new ArrayList<Inimigo>();
 		spritesheet = new Spritesheet("/spritesheet.png");
@@ -123,7 +123,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		
 		g = image.getGraphics();
 		g.setColor(Color.black);
-		g.fillRect(0, 0, WIDTH*SCALE, HEIGHT*SCALE);
+		g.fillRect(0, 0, WIDTH*SCALE, HEIGTH*SCALE);
 		
 		
 		word.render(g);
@@ -136,7 +136,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		
 		g.dispose();// Limpar dados de imagem n�o usados
 		g = bs.getDrawGraphics();
-		g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
+		g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGTH * SCALE, null);
 		bs.show();
 
 

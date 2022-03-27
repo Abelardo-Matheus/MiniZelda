@@ -11,12 +11,12 @@ import Game.Game;
 
 public class Inimigo extends Entity {
 	
-	private double spd = 1;
+	private double spd = 1 ;
 	
 	private int maskx =0, masky = 0,maskw =12, maskh=15;
 	private int frames = 0, maxframes = 15, index = 0, maxindex = 3;
 	private BufferedImage[] sprites;
-	public int dano = 2;
+	public double dano = 1.5;
 
 	public Inimigo(int x, int y, int width, int heigth, BufferedImage sprite) {
 		super(x, y, width, heigth, null);
@@ -54,7 +54,7 @@ public class Inimigo extends Entity {
 			System.out.println(Game.player.vida);
 			}if(Game.player.vida == 0) {
 				System.out.println("murreo");
-				//System.exit(1);
+				System.exit(1);
 			}
 		}
 		
