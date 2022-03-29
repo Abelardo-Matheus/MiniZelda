@@ -19,7 +19,7 @@ public class Player extends Entity{
 	public int dir = direito_dir;
 	public int spd = 2;
 	
-	public static double Maxvida = 100,vida =200;
+	public double Maxvida = 100,vida =200;
 	
 	private int frames = 0, maxframes = 10, index = 0, maxindex = 3;
 	private boolean moved = false;
@@ -29,6 +29,10 @@ public class Player extends Entity{
 	private BufferedImage DanoPS;
 	private BufferedImage DanoPD;
 	private int DanoFrames = 0 ;
+	private BufferedImage[] DireitoDano;
+	private BufferedImage[] EsquerdoDano;
+	
+	private Boolean Arma = false;
 	
 	
 	public static boolean IsDano = false;
@@ -40,13 +44,24 @@ public class Player extends Entity{
 		
 		DireitoP = new BufferedImage[4];
 		EsquerdoP = new BufferedImage[4];
-		DanoPD = Game.spritesheet.getSprite(98, 0, 12, 16);
-		DanoPS = Game.spritesheet.getSprite(115, 0, 12, 16);
+		
+		DireitoDano = new BufferedImage[4];
+		EsquerdoDano = new BufferedImage[4];
 		
 		DireitoP[0] = Game.spritesheet.getSprite(34, 0, 12, 16);
 		DireitoP[1] = Game.spritesheet.getSprite(50, 0, 12, 16);
 		DireitoP[2] = Game.spritesheet.getSprite(66, 0, 12, 16);
 		DireitoP[3] = Game.spritesheet.getSprite(82, 0, 12, 16);
+		
+		DireitoDano[0] = Game.spritesheet.getSprite(97, 0, 12, 16);
+		DireitoDano[1] = Game.spritesheet.getSprite(113, 0, 12, 16);
+		DireitoDano[2] = Game.spritesheet.getSprite(129, 0, 12, 16);
+		DireitoDano[3] = Game.spritesheet.getSprite(145, 0, 12, 16);
+		
+		EsquerdoDano[3] = Game.spritesheet.getSprite(82, 33, 12, 16);
+		EsquerdoDano[2] = Game.spritesheet.getSprite(66, 33, 12, 16);
+		EsquerdoDano[1] = Game.spritesheet.getSprite(50, 33, 12, 16);
+		EsquerdoDano[0] = Game.spritesheet.getSprite(34, 33, 12, 16);
 		
 		EsquerdoP[3] = Game.spritesheet.getSprite(82, 16, 12, 16);
 		EsquerdoP[2] = Game.spritesheet.getSprite(66, 16, 12, 16);
@@ -93,6 +108,7 @@ public class Player extends Entity{
 		
 		this.checkCollisionVida();
 		this.checkColisionCarga();
+		this.checkColisionArmaa();
 		if(IsDano) {
 			this.DanoFrames++;
 			if(this.DanoFrames == 10) {
@@ -112,6 +128,19 @@ public class Player extends Entity{
 		Camera.x = Camera.clamp(this.x - (Game.WIDTH/2),0, Word.WIDTH * 16 -Game.WIDTH);
 		Camera.y = Camera.clamp(this.y - (Game.HEIGTH/2),0, Word.HEIGTH * 16-Game.HEIGTH);
 		
+	}
+	
+	public void checkColisionArmaa() {
+		for(int i = 0; i < Game.entities.size(); i++) {
+			Entity e = Game.entities.get(i);
+			if(e instanceof Anel) {
+				if(Entity.isColliding(this, e)) {
+					Arma=true;
+					Game.entities.remove(i);
+
+				}
+			}
+		}
 	}
 	
 	public void checkColisionCarga() {
@@ -151,18 +180,29 @@ public class Player extends Entity{
 		if(!IsDano) {
 		if(dir == direito_dir){
 		g.drawImage(DireitoP[index], this.getX()+4 - Camera.x,this.getY() - Camera.y, null);
+		if(Arma) {
+			g.drawImage(Entity.Anel_ES, this.getX() - Camera.x,this.getY()+7 - Camera.y, null);
+		
+		}
 		}else if(dir == esquerdo_dir){
 			g.drawImage(EsquerdoP[index], this.getX() - Camera.x,this.getY() - Camera.y, null);
+		if(Arma) {
+			g.drawImage(Entity.Anel_DI, this.getX()+2 - Camera.x,this.getY()+7 - Camera.y, null);
 		}
 		
-		
+		}
 	}else if(IsDano = true && dir == direito_dir){
-		g.drawImage(DanoPD, this.getX()+4-Camera.x, this.getY()-Camera.y, null);
+		g.drawImage(DireitoDano[index], this.getX()+4-Camera.x, this.getY()-Camera.y, null);
+		if(Arma) {
+			g.drawImage(Entity.Anel_ESDANO, this.getX()+ - Camera.x,this.getY()+7 - Camera.y, null);
+		}
 	}else if(IsDano = true && dir == esquerdo_dir) {
-		g.drawImage(DanoPS, this.getX()-Camera.x, this.getY()-Camera.y, null);
+		g.drawImage(EsquerdoDano[index], this.getX()-Camera.x, this.getY()-Camera.y, null);
+	if(Arma) {
+		g.drawImage(Entity.Anel_DIDANO, this.getX()+2 - Camera.x,this.getY()+7 - Camera.y, null);
 	}
-
-
 
 	}
 }
+	}
+

@@ -10,6 +10,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 
 import Abelardo.entities.Player;
+import Game.Game;
 
 public class UI {
 	
@@ -22,10 +23,10 @@ public class UI {
 		g.setColor(Color.red);
 		g.fillRect(5, 10, 104, 7);
 		g.setColor(new Color(0, 255, 200));
-		g.fillRect(5, 10, ((int)Player.vida/2)+4, 7);
+		g.fillRect(5, 10, ((int)Game.player.vida/2)+4, 7);
 		g.setColor(Color.white);
 		g.setFont(new Font("Arial ", Font.CENTER_BASELINE,9));
-		g.drawString("vida:" +(int)Player.vida, 8,17);
+		g.drawString("vida:" +(int)Game.player.vida, 8,17);
 		
 		g.setColor(new Color(0, 255, 0));
 		Graphics2D g2d = (Graphics2D) g;

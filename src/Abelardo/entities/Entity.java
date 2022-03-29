@@ -15,6 +15,10 @@ public class Entity {
 	
 	private int maskx = 0, masky =0,mwidth=16 , mheigth=16;
 	
+	public static BufferedImage  Anel_ES = Game.spritesheet.getSprite(88,  89, 14, 12);
+	public static BufferedImage  Anel_DI = Game.spritesheet.getSprite(107,  89, 14, 11);
+	public static BufferedImage  Anel_ESDANO = Game.spritesheet.getSprite(124,  89, 14, 11);
+	public static BufferedImage  Anel_DIDANO = Game.spritesheet.getSprite(144,  89, 14, 11);
 	public static BufferedImage VIDA_EN = Game.spritesheet.getSprite(97, 20, 14, 12);
 	public static BufferedImage ANEL_EN = Game.spritesheet.getSprite(115, 3, 10, 10);
 	public static BufferedImage INIMIGO_EN = Game.spritesheet.getSprite(95, 35, 15, 15);
