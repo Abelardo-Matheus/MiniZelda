@@ -20,6 +20,7 @@ import Abelardo.Graficos.UI;
 import Abelardo.entities.Entity;
 import Abelardo.entities.Inimigo;
 import Abelardo.entities.Player;
+import Abelardo.entities.TiroFogo;
 import Abelardo.word.Word;
 
 
@@ -48,6 +49,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	private BufferedImage image;
 	public static List<Entity> entities;
 	public static List<Inimigo> inimigos;
+	public static List<TiroFogo> balas;
 	
 	public static Random rand;
 	
@@ -63,6 +65,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		image = new BufferedImage(WIDTH, HEIGTH, BufferedImage.TYPE_INT_RGB);
 		entities = new ArrayList<Entity>();
 		inimigos = new ArrayList<Inimigo>();
+		balas = new ArrayList<TiroFogo>();
 		spritesheet = new Spritesheet("/spritesheet.png");
 		player = new Player(0,0,16,16,spritesheet.getSprite(32, 0, 12, 16));
 		entities.add(player);
@@ -90,6 +93,14 @@ public class Game extends Canvas implements Runnable, KeyListener{
 			}
 			e.tick();
 		}
+		
+		for(int i = 0;i < balas.size();i++) {
+			balas.get(i).tick();
+		}
+		
+		
+		
+		
 	}
 	public synchronized void stop(){
 		isRunning = false;
@@ -133,6 +144,9 @@ public class Game extends Canvas implements Runnable, KeyListener{
 			e.render(g);
 			
 		}
+		for(int i = 0;i < balas.size();i++) {
+			balas.get(i).render(g);
+		}
 		ui.render(g);
 		
 		g.dispose();// Limpar dados de imagem n�o usados
@@ -166,7 +180,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 				delta--;
 			}
 				if(System.currentTimeMillis()-timer >= 1000) {
-					System.out.println("Fps:"+frames);
+					//System.out.println("Fps:"+frames);
 					frames = 0;
 					timer += 1000;
 				}
@@ -196,6 +210,8 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		}else if(e.getKeyCode()== KeyEvent.VK_DOWN|| e.getKeyCode() == KeyEvent.VK_S ) {
 			player.down=true;
 			//System.out.println("baixo");
+		}if(e.getKeyCode()== KeyEvent.VK_X || e.getKeyCode() == KeyEvent.VK_1){
+			player.atirando = true;
 		}
 		
 	}

@@ -52,7 +52,7 @@ public class Inimigo extends Entity {
 			if(Game.rand.nextInt(100)<50) {
 			Game.player.vida -= dano;
 			Game.player.IsDano = true;
-			System.out.println(Game.player.vida);
+			//System.out.println(Game.player.vida);
 			}
 		}
 		

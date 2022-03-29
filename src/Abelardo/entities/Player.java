@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import Abelardo.Graficos.Spritesheet;
 import Abelardo.word.Camera;
@@ -21,6 +23,8 @@ public class Player extends Entity{
 	
 	public double Maxvida = 100,vida =200;
 	
+	public static boolean atirando = false;
+	
 	private int frames = 0, maxframes = 10, index = 0, maxindex = 3;
 	private boolean moved = false;
 	private BufferedImage[] DireitoP;
@@ -33,11 +37,12 @@ public class Player extends Entity{
 	private BufferedImage[] EsquerdoDano;
 	
 	private Boolean Arma = false;
+	private int quanticarga =0;
 	
 	
 	public static boolean IsDano = false;
 	
-	public static int carga = 0 , cargatotal = 100;
+	public static int carga = 0 , cargatotal = 100, cargaP = 10;
 	
 	public Player(int x, int y,int width, int heigth, BufferedImage sprite) {
 		super(x ,y, width, heigth,sprite);
@@ -68,6 +73,8 @@ public class Player extends Entity{
 		EsquerdoP[1] = Game.spritesheet.getSprite(50, 16, 12, 16);
 		EsquerdoP[0] = Game.spritesheet.getSprite(34, 16, 12, 16);
 		
+		
+		
 	}
 	
 	
@@ -79,11 +86,13 @@ public class Player extends Entity{
 		if(right && Word.isFree((int)(x+spd), this.getY())) {
 			moved = true;
 			dir = direito_dir;
+			TiroFogo.dir = TiroFogo.direito_dir;
 			x+=spd;
 			
 		}else if(left && Word.isFree((int)(x-spd),this.getY())) {
 			moved = true;
 			dir = esquerdo_dir;
+			TiroFogo.dir = TiroFogo.esquerdo_dir;
 			 x-=spd;
 		}
 		
@@ -95,8 +104,18 @@ public class Player extends Entity{
 			 y+=spd;
 		}
 		
+		if(Word.CargaRender == true) {
+			Word.frames++;
+			//System.out.println(+Word.frames);
+			if(Word.frames == Word.maxframes) {
+				Word.CargaRender=false;
+				Word.frames=0;
+				
+			}
+		}
 		if(moved == true) {
 			frames++;
+			
 			if(frames==maxframes) {
 				frames=0;
 				index++;
@@ -109,6 +128,27 @@ public class Player extends Entity{
 		this.checkCollisionVida();
 		this.checkColisionCarga();
 		this.checkColisionArmaa();
+		
+		if(atirando) {
+			atirando = false;
+			if(Arma && carga > 0) {
+			carga-=5;			
+			//System.out.println("atirando");
+			int dx = 0;
+			if(dir == direito_dir) {
+				dx = 1;
+			}else {
+				dx = -1;
+			}
+		
+			TiroFogo bala = new TiroFogo(this.getX(),this.getY(), 3, 3, sprite, dx, 0);
+			Game.balas.add(bala);
+	}
+			
+			
+		}
+		
+		
 		if(IsDano) {
 			this.DanoFrames++;
 			if(this.DanoFrames == 10) {
@@ -116,6 +156,7 @@ public class Player extends Entity{
 				IsDano = false;
 			}
 		}if(Game.player.vida <= 0) {
+			carga=0;
 			Game.entities = new ArrayList<Entity>();
 			Game.inimigos = new ArrayList<Inimigo>();
 			Game.spritesheet = new Spritesheet("/spritesheet.png");
@@ -148,15 +189,19 @@ public class Player extends Entity{
 			Entity e = Game.entities.get(i);
 			if(e instanceof Carga) {
 				if(Entity.isColliding(this, e)) {
-					carga+=10;
+					carga =carga + cargaP;
+					Word.CargaRender=true;
 					if(carga >= cargatotal) {
 						carga = cargatotal;
 					}
+					System.out.println(+carga);
 					Game.entities.remove(i);
-
-				}
+				
+			}
 			}
 		}
+				
+				
 	}
 	
 	

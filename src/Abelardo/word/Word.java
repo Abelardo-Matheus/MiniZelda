@@ -3,6 +3,8 @@ package Abelardo.word;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 
@@ -10,6 +12,7 @@ import Abelardo.entities.Anel;
 import Abelardo.entities.Carga;
 import Abelardo.entities.Entity;
 import Abelardo.entities.Inimigo;
+import Abelardo.entities.Player;
 import Abelardo.entities.Vida;
 import Game.Game;
 
@@ -18,6 +21,9 @@ public class Word {
 	public static Tiles[] tiles;
 	public static int WIDTH, HEIGTH; 
 	public static final int TILE_SIZE = 16;
+	public static boolean CargaRender = true;
+	
+	public static int frames = 0, maxframes = 100;
 	
 	
 	public Word(String path) {
@@ -30,6 +36,8 @@ public class Word {
 			map.getRGB(0, 0, map.getWidth(), map.getHeight(), pixels, 0, map.getWidth());
 				for(int xx = 0 ;xx < map.getWidth();xx++) {
 					for(int yy = 0;yy < map.getHeight();yy++) {
+						int xx2 = xx;
+						int yy2 = yy;
 						int pixelatual = pixels[xx+(yy*map.getWidth())];
 						tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_CHAO);
 						if(pixelatual == 0xFF000000) {
@@ -73,9 +81,25 @@ public class Word {
 							Game.inimigos.add(en);
 							
 						}else if(pixelatual== 0xFF3AFFEB) {
-							//carga
-							Game.entities.add(new Carga(xx*16, yy*16, 16, 16,Entity.CARGAS_EN));
-						}else {
+							Game.entities.add(new Carga( xx2*16, yy2*16, 16, 16,Entity.CARGAS_EN)); 
+							int delay = 5000;   // delay de 5 seg.
+							int interval = 1000;  // intervalo de 1 seg.
+							Timer timer = new Timer();
+
+							timer.scheduleAtFixedRate(new TimerTask() {
+							        public void run() {
+							        	if(maxframes == 100 && Player.IsDano == true) {
+							        	Game.entities.add(new Carga( xx2*16, yy2*16, 16, 16,Entity.CARGAS_EN)); 
+
+							        	}
+							        }
+							    }, delay, interval);
+								
+
+							}
+							 		
+		
+					else {
 							//chão
 							tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_CHAO);
 						}
@@ -87,6 +111,8 @@ public class Word {
 		}
 		
 	}
+	
+	
 	
 	public static boolean isFree(int xNext, int yNext) {
 		int x1 = xNext / TILE_SIZE;
