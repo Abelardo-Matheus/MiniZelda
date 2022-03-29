@@ -9,11 +9,12 @@ import Game.Game;
 
 public class TiroFogo extends Entity{
 	
-	private int dx;
-	private int dy;
+	private double dx;
+	private double dy;
 	private double spd = 3;
 	private BufferedImage[] spritetiroD;
 	private BufferedImage[] spritetiroE;
+	public static boolean tiroE = false, tiroD = false;
 	
 	public static int direito_dir = 0,esquerdo_dir = 1;
 	public static int dir = direito_dir;
@@ -44,7 +45,7 @@ public class TiroFogo extends Entity{
 		
 	}
 	
-	public TiroFogo(int x, int y, int width, int heigth, BufferedImage sprite, int dx, int dy) {
+	public TiroFogo(int x, int y, int width, int heigth, BufferedImage sprite, double dx, double dy) {
 		super(x, y, width, heigth, sprite);
 		this.dx = dx;
 		this.dy = dy;
@@ -71,9 +72,11 @@ public class TiroFogo extends Entity{
 		
 		if(dir == direito_dir) {
 		g.drawImage(spritetiroD[index], this.getX()+4 - Camera.x,this.getY()+8-Camera.y, null);
+		tiroD = false;
 		
-		}else if(dir == esquerdo_dir) {
+		}else if(dir == esquerdo_dir ) {
 			g.drawImage(spritetiroE[index], this.getX()-4 - Camera.x,this.getY()+8-Camera.y, null);
+			tiroE = false;
 		}
 		
 		

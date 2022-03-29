@@ -16,14 +16,18 @@ import Game.Game;
 
 public class Player extends Entity{
 	
-	public boolean right ,up,down , left ;
-	public int direito_dir = 0,esquerdo_dir = 1;
-	public int dir = direito_dir;
+	public static boolean right ;
+	public static boolean up;
+	public static boolean down;
+	public static boolean left;
+	public static int direito_dir = 0,esquerdo_dir = 1;
+	public static int dir = direito_dir;
 	public int spd = 2;
 	
 	public double Maxvida = 100,vida =200;
 	
-	public static boolean atirando = false;
+	public static boolean atirando = false, mouseShoot = false;
+
 	
 	private int frames = 0, maxframes = 10, index = 0, maxindex = 3;
 	private boolean moved = false;
@@ -38,6 +42,7 @@ public class Player extends Entity{
 	
 	private Boolean Arma = false;
 	private int quanticarga =0;
+	public int mx, my;
 	
 	
 	public static boolean IsDano = false;
@@ -85,12 +90,14 @@ public class Player extends Entity{
 		moved = false;
 		if(right && Word.isFree((int)(x+spd), this.getY())) {
 			moved = true;
+			
 			dir = direito_dir;
 			TiroFogo.dir = TiroFogo.direito_dir;
 			x+=spd;
 			
 		}else if(left && Word.isFree((int)(x-spd),this.getY())) {
 			moved = true;
+			
 			dir = esquerdo_dir;
 			TiroFogo.dir = TiroFogo.esquerdo_dir;
 			 x-=spd;
@@ -135,17 +142,39 @@ public class Player extends Entity{
 			carga-=5;			
 			//System.out.println("atirando");
 			int dx = 0;
-			if(dir == direito_dir) {
-				dx = 1;
-			}else {
-				dx = -1;
-			}
+				if(dir == direito_dir) {
+					dx = 1;
+				}else {
+					dx = -1;
+				}
 		
 			TiroFogo bala = new TiroFogo(this.getX(),this.getY(), 3, 3, sprite, dx, 0);
 			Game.balas.add(bala);
-	}
+			}
 			
 			
+		}
+		
+		if(mouseShoot) {
+			//System.out.println("atirando");
+			mouseShoot = false;
+			if(Arma && carga > 0) {
+			carga-=5;			
+			int px = 0, py = 0;
+			double angle = 0;
+			if(dir == direito_dir) {
+				px = 18;
+				angle = Math.atan2(my - (this.getY() - Camera.y) + px,mx - (this.getX() - Camera.x));	
+			}else {
+				px = -8;
+				angle = Math.atan2(my - (this.getY() - Camera.y) + px,mx - (this.getX() - Camera.x));	
+			}
+			double dx = Math.cos(angle);
+			double dy = Math.sin(angle);
+			TiroFogo bala = new TiroFogo(this.getX(),this.getY(), 3, 3, sprite, dx, dy);
+			Game.balas.add(bala);
+			}
+	
 		}
 		
 		

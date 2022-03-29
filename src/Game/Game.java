@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -21,11 +23,12 @@ import Abelardo.entities.Entity;
 import Abelardo.entities.Inimigo;
 import Abelardo.entities.Player;
 import Abelardo.entities.TiroFogo;
+import Abelardo.word.Camera;
 import Abelardo.word.Word;
 
 
 
-public class Game extends Canvas implements Runnable, KeyListener{
+public class Game extends Canvas implements Runnable, KeyListener, MouseListener{
 	
 	
 	/**
@@ -58,6 +61,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	public Game(){
 		rand = new Random();
 		this.addKeyListener(this);
+		this.addMouseListener(this);
 		this.setPreferredSize(new Dimension(WIDTH*SCALE, HEIGTH*SCALE));
 		initFrame();
 		
@@ -199,9 +203,11 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode()== KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D ) {
 			player.right=true;
+			
 			//System.out.println("direita");
 		}else if(e.getKeyCode()== KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
 			player.left=true;
+	
 			//System.out.println("esquerda");
 		}
 		if(e.getKeyCode()== KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
@@ -231,6 +237,38 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		}else if(e.getKeyCode()== KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
 			player.down=false;
 		}
+		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		Player.mouseShoot = true;
+		player.mx = (e.getX() /3);
+		player.my = (e.getY() /3);
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 
