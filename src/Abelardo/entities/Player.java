@@ -47,7 +47,7 @@ public class Player extends Entity{
 	
 	public static boolean IsDano = false;
 	
-	public static int carga = 0 , cargatotal = 100, cargaP = 10;
+	public static int carga = 0 , cargatotal = 100, cargaP = 100;
 	
 	public Player(int x, int y,int width, int heigth, BufferedImage sprite) {
 		super(x ,y, width, heigth,sprite);
@@ -220,7 +220,7 @@ public class Player extends Entity{
 				if(Entity.isColliding(this, e)) {
 					carga =carga + cargaP;
 					Word.CargaRender=true;
-					if(carga >= cargatotal) {
+					if(carga > cargatotal) {
 						carga = cargatotal;
 					}
 					System.out.println(+carga);

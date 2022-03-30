@@ -21,6 +21,7 @@ public class Entity {
 	public static BufferedImage  Anel_DIDANO = Game.spritesheet.getSprite(144,  89, 14, 11);
 	public static BufferedImage VIDA_EN = Game.spritesheet.getSprite(97, 20, 14, 12);
 	public static BufferedImage ANEL_EN = Game.spritesheet.getSprite(115, 3, 10, 10);
+	public static BufferedImage INIMIGO_DANO = Game.spritesheet.getSprite(142, 104, 15, 14);
 	public static BufferedImage INIMIGO_EN = Game.spritesheet.getSprite(95, 35, 15, 15);
 	public static BufferedImage CARGAS_EN = Game.spritesheet.getSprite(62, 53, 16, 15);
 	

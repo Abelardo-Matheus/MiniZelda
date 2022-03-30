@@ -13,12 +13,18 @@ public class Inimigo extends Entity {
 	
 	private double spd = 1 ;
 	
+	public static int  xx, yy;
+	
 	private int maskx =0, masky = 0,maskw =12, maskh=15;
 	private int frames = 0, maxframes = 15, index = 0, maxindex = 3;
 	private BufferedImage[] sprites;
 	public double dano = 1.5;
 	
 	private int vidae = 10;
+	
+	private boolean InimigoDano = false;
+	private int danoFrames = 10,DanoCurrent = 0;
+	public static boolean InimigoMorto = false;
 
 	public Inimigo(int x, int y, int width, int heigth, BufferedImage sprite) {
 		super(x, y, width, heigth, null);
@@ -70,8 +76,19 @@ public class Inimigo extends Entity {
 			
 			collisionBala();
 			if(vidae<=0) {
+				InimigoMorto= true;
+				//System.out.println(+RevM);
+				//System.out.println(+InimigoMorto);
 				destroySelf();
 				return;
+			}
+			
+			if(InimigoDano) {
+				this.DanoCurrent++;
+				if(this.DanoCurrent == this.danoFrames) {
+					this.DanoCurrent=0;
+					this.InimigoDano=false;
+				}
 			}
 		
 	}
@@ -87,6 +104,7 @@ public class Inimigo extends Entity {
 			if(e instanceof	TiroFogo) {
 				if(Entity.isColliding(this, e)) {					
 					vidae-=2;
+					InimigoDano = true;
 					Game.balas.remove(e);
 					return;
 				}
@@ -129,9 +147,12 @@ public class Inimigo extends Entity {
 	
 	public void render(Graphics g) {
 		
+		if(!InimigoDano) {
 		g.drawImage(sprites[index], this.getX() - Camera.x,this.getY()-Camera.y, null);
 		
-		
+		}else{
+			g.drawImage(Entity.INIMIGO_DANO, this.getX() - Camera.x,this.getY()-Camera.y, null);
+		}
 		//g.setColor(Color.red);
 		//g.fillRect(this.getX() + maskx - Camera.x,this.getY() + masky - Camera.y, maskw, maskh);
 		

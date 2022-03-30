@@ -81,25 +81,17 @@ public class Word {
 							Game.inimigos.add(en);
 							
 						}else if(pixelatual== 0xFF3AFFEB) {
-							Game.entities.add(new Carga( xx2*16, yy2*16, 16, 16,Entity.CARGAS_EN)); 
-							int delay = 5000;   // delay de 5 seg.
-							int interval = 1000;  // intervalo de 1 seg.
+							Game.entities.add(new Carga( xx*16, yy*16, 16, 16,Entity.CARGAS_EN));
+							int delay = 5000;   // tempo de espera antes da 1ª execução da tarefa.
+							int interval = 10000;  // intervalo no qual a tarefa será executada.
 							Timer timer = new Timer();
-
 							timer.scheduleAtFixedRate(new TimerTask() {
-							        public void run() {
-							        	if(maxframes == 100 && Player.IsDano == true) {
-							        	Game.entities.add(new Carga( xx2*16, yy2*16, 16, 16,Entity.CARGAS_EN)); 
+							  public void run() {
+								  Game.entities.add(new Carga( xx2*16, yy2*16, 16, 16,Entity.CARGAS_EN));       
+							  }
+							}, delay, interval);
 
-							        	}
-							        }
-							    }, delay, interval);
-								
-
-							}
-							 		
-		
-					else {
+						}else {
 							//chão
 							tiles[xx + (yy*map.getWidth())] = new ChaoTile(xx*16,yy*16, Tiles.TILE_CHAO);
 						}
