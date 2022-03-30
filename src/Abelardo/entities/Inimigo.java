@@ -17,6 +17,8 @@ public class Inimigo extends Entity {
 	private int frames = 0, maxframes = 15, index = 0, maxindex = 3;
 	private BufferedImage[] sprites;
 	public double dano = 1.5;
+	
+	private int vidae = 10;
 
 	public Inimigo(int x, int y, int width, int heigth, BufferedImage sprite) {
 		super(x, y, width, heigth, null);
@@ -61,11 +63,40 @@ public class Inimigo extends Entity {
 			if(frames==maxframes) {
 				frames=0;
 				index++;
-				if(index>maxindex) {
+				if(index>maxindex) { 
 					index=0;
 				}
 			}
+			
+			collisionBala();
+			if(vidae<=0) {
+				destroySelf();
+				return;
+			}
 		
+	}
+	
+	public void destroySelf() {
+		
+		Game.entities.remove(this);
+	}
+	
+	public void collisionBala() {
+		for(int i = 0; i < Game.balas.size();i++) {
+			Entity e = Game.balas.get(i);
+			if(e instanceof	TiroFogo) {
+				if(Entity.isColliding(this, e)) {					
+					vidae-=2;
+					Game.balas.remove(e);
+					return;
+				}
+				
+			}
+			
+			
+		}
+		
+
 		
 	}
 	

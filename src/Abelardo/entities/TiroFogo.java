@@ -12,14 +12,14 @@ public class TiroFogo extends Entity{
 	private double dx;
 	private double dy;
 	private double spd = 3;
-	private BufferedImage[] spritetiroD;
-	private BufferedImage[] spritetiroE;
+	private BufferedImage spritetiro;
+	//private BufferedImage[] spritetiroE;
 	public static boolean tiroE = false, tiroD = false;
 	
 	public static int direito_dir = 0,esquerdo_dir = 1;
 	public static int dir = direito_dir;
 	
-	private int life = 60, curLife = 0;;
+	private int life = 100, curLife = 0;;
 	
 	private int frames = 0, maxframes = 5, index = 0, maxindex = 3;
 	
@@ -50,34 +50,36 @@ public class TiroFogo extends Entity{
 		this.dx = dx;
 		this.dy = dy;
 		
-		spritetiroD = new BufferedImage[4];
-		spritetiroE = new BufferedImage[4];
+		//spritetiroD = new BufferedImage[4];
+		//spritetiroE = new BufferedImage[4];a
+		spritetiro = Game.spritesheet.getSprite(90, 106, 8, 6);
+		//spritetiroD[1] = Game.spritesheet.getSprite(95, 103, 18, 14);
+		//spritetiroD[2] = Game.spritesheet.getSprite(115, 103, 18, 14);
+		//spritetiroD[3] = Game.spritesheet.getSprite(137, 103, 18, 14);
 		
-		spritetiroD[0] = Game.spritesheet.getSprite(74, 103, 18, 14);
-		spritetiroD[1] = Game.spritesheet.getSprite(95, 103, 18, 14);
-		spritetiroD[2] = Game.spritesheet.getSprite(115, 103, 18, 14);
-		spritetiroD[3] = Game.spritesheet.getSprite(137, 103, 18, 14);
-		
-		spritetiroE[0] = Game.spritesheet.getSprite(139, 119, 18, 14);
-		spritetiroE[1] = Game.spritesheet.getSprite(118, 119, 18, 14);
-		spritetiroE[2] = Game.spritesheet.getSprite(98, 119, 18, 14);
-		spritetiroE[3] = Game.spritesheet.getSprite(76, 119, 18, 14);
+		//spritetiroE[0] = Game.spritesheet.getSprite(139, 119, 18, 14);
+		//spritetiroE[1] = Game.spritesheet.getSprite(118, 119, 18, 14);
+		//spritetiroE[2] = Game.spritesheet.getSprite(98, 119, 18, 14);
+		//spritetiroE[3] = Game.spritesheet.getSprite(76, 119, 18, 14);
 		
 	}
 	
 	public void render(Graphics g) {
 		
+		
+		g.drawImage(spritetiro, this.getX()+4 - Camera.x,this.getY()+8-Camera.y, null);
+		
 		//g.setColor(Color.white);
 		//g.fillOval(this.getX()-Camera.x, this.getY()-Camera.y, 3, 3);
 		
-		if(dir == direito_dir) {
-		g.drawImage(spritetiroD[index], this.getX()+4 - Camera.x,this.getY()+8-Camera.y, null);
-		tiroD = false;
+		//if(dir == direito_dir) {
 		
-		}else if(dir == esquerdo_dir ) {
-			g.drawImage(spritetiroE[index], this.getX()-4 - Camera.x,this.getY()+8-Camera.y, null);
-			tiroE = false;
-		}
+
+		
+		//}else if(dir == esquerdo_dir ) {
+		//	g.drawImage(spritetiroE[index], this.getX()-4 - Camera.x,this.getY()+8-Camera.y, null);
+
+		//}
 		
 		
 	}
