@@ -3,11 +3,13 @@ package Abelardo.word;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 
+import Abelardo.Graficos.Spritesheet;
 import Abelardo.entities.Anel;
 import Abelardo.entities.Carga;
 import Abelardo.entities.Entity;
@@ -82,14 +84,7 @@ public class Word {
 							
 						}else if(pixelatual== 0xFF3AFFEB) {
 							Game.entities.add(new Carga( xx*16, yy*16, 16, 16,Entity.CARGAS_EN));
-							int delay = 5000;   // tempo de espera antes da 1ª execução da tarefa.
-							int interval = 10000;  // intervalo no qual a tarefa será executada.
-							Timer timer = new Timer();
-							timer.scheduleAtFixedRate(new TimerTask() {
-							  public void run() {
-								  Game.entities.add(new Carga( xx2*16, yy2*16, 16, 16,Entity.CARGAS_EN));       
-							  }
-							}, delay, interval);
+							
 
 						}else {
 							//chão
@@ -105,7 +100,7 @@ public class Word {
 	}
 	
 	
-	
+
 	public static boolean isFree(int xNext, int yNext) {
 		int x1 = xNext / TILE_SIZE;
 		int y1 = yNext /TILE_SIZE;
@@ -123,6 +118,21 @@ public class Word {
 				(tiles[x2 + (y2 * Word.WIDTH)] instanceof ParedeTile)||
 				(tiles[x3 + (y3 * Word.WIDTH)] instanceof ParedeTile)||
 				(tiles[x4 + (y4 * Word.WIDTH)] instanceof ParedeTile));
+		
+	}
+	
+	public static void RestartGame(String level) {
+		
+		Game.entities.clear();
+		Game.inimigos.clear();
+		Player.carga=0;
+		Game.entities = new ArrayList<Entity>();
+		Game.inimigos = new ArrayList<Inimigo>();
+		Game.spritesheet = new Spritesheet("/spritesheet.png");
+		Game.player = new Player(0,0,16,16,Game.spritesheet.getSprite(32, 0, 12, 16));
+		Game.entities.add(Game.player);
+		Game.word = new Word("/"+level);	
+		return;
 		
 	}
 	

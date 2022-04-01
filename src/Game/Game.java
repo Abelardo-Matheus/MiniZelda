@@ -45,6 +45,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	private Graphics g;
 	
+	private int cur_level = 1,Maxlevel = 3;
+	
 
 	public static Spritesheet spritesheet;
 	public static Word word;
@@ -73,7 +75,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		spritesheet = new Spritesheet("/spritesheet.png");
 		player = new Player(0,0,16,16,spritesheet.getSprite(32, 0, 12, 16));
 		entities.add(player);
-		word = new Word("/map.png");
+		word = new Word("/level1.png");
 		 
 		
 		}
@@ -95,11 +97,22 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			if (e instanceof Player) {
 				// Ticks do Player
 			}
-			e.tick();
+			e.tick(); 
 		}
 		
 		for(int i = 0;i < balas.size();i++) {
 			balas.get(i).tick();
+		}
+		
+		if(inimigos.size() == 0) {
+			//Proximo lvl
+			cur_level++;
+			if(cur_level > Maxlevel) {
+				cur_level=1;
+			}
+			String newWord = "level"+cur_level+".png";
+			//System.out.println(""+newWord);
+			Word.RestartGame(newWord);
 		}
 		
 		

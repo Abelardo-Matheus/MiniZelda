@@ -16,6 +16,7 @@ import Game.Game;
 
 public class Player extends Entity{
 	
+	private static final String String = null;
 	public static boolean right ;
 	public static boolean up;
 	public static boolean down;
@@ -185,14 +186,9 @@ public class Player extends Entity{
 				IsDano = false;
 			}
 		}if(Game.player.vida <= 0) {
-			carga=0;
-			Game.entities = new ArrayList<Entity>();
-			Game.inimigos = new ArrayList<Inimigo>();
-			Game.spritesheet = new Spritesheet("/spritesheet.png");
-			Game.player = new Player(0,0,16,16,Game.spritesheet.getSprite(32, 0, 12, 16));
-			Game.entities.add(Game.player);
-			Game.word = new Word("/map.png");
-			return;
+			String level1 = "level1.png";
+			Word.RestartGame(level1);
+			
 		}
 		
 		Camera.x = Camera.clamp(this.x - (Game.WIDTH/2),0, Word.WIDTH * 16 -Game.WIDTH);
@@ -214,6 +210,9 @@ public class Player extends Entity{
 	}
 	
 	public void checkColisionCarga() {
+		
+		if(Arma==true) {
+		if(carga<cargatotal) {
 		for(int i = 0; i < Game.entities.size(); i++) {
 			Entity e = Game.entities.get(i);
 			if(e instanceof Carga) {
@@ -228,13 +227,19 @@ public class Player extends Entity{
 				
 			}
 			}
-		}
+			}
+			}
+		
+		
+}
 				
 				
 	}
 	
 	
 	public void checkCollisionVida() {
+		
+		if(vida<200) {
 		for(int i = 0; i < Game.entities.size(); i++) {
 			Entity e = Game.entities.get(i);
 			if(e instanceof Vida) {
@@ -247,6 +252,7 @@ public class Player extends Entity{
 					return;
 				}
 			}
+		}
 		}
 	}
 	

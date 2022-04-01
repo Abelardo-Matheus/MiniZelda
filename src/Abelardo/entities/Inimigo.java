@@ -18,7 +18,7 @@ public class Inimigo extends Entity {
 	private int maskx =0, masky = 0,maskw =12, maskh=15;
 	private int frames = 0, maxframes = 15, index = 0, maxindex = 3;
 	private BufferedImage[] sprites;
-	public double dano = 1.5;
+	public double dano = 4;
 	
 	private int vidae = 10;
 	
@@ -77,6 +77,7 @@ public class Inimigo extends Entity {
 			collisionBala();
 			if(vidae<=0) {
 				InimigoMorto= true;
+				
 				//System.out.println(+RevM);
 				//System.out.println(+InimigoMorto);
 				destroySelf();
@@ -94,7 +95,7 @@ public class Inimigo extends Entity {
 	}
 	
 	public void destroySelf() {
-		
+		Game.inimigos.remove(this);
 		Game.entities.remove(this);
 	}
 	
