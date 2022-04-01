@@ -62,6 +62,10 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static Random rand;
 	
 	public static String gamestate = "NORMAL";
+	private boolean MensagemReiniciar = true;
+	private int framesGameOver = 0;
+	
+	private boolean restarGame = false;
 	
 	public UI ui;
 	
@@ -98,6 +102,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	}
 	public void tick(){
 		if(gamestate == "NORMAL") {
+			this.restarGame=false;
 		for (int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
 			if (e instanceof Player) {
@@ -121,6 +126,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			Word.RestartGame(newWord);
 		}
 		}else if(gamestate == "GAMEOVER") {
+			this.framesGameOver++;
 			cur_fade+=3;
 			if(cur_fade > Maxfade) {
 				cur_fade=255;
@@ -128,8 +134,26 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			cur_fade2+=3;
 			if(cur_fade2 > Maxfade2) {
 				cur_fade2=100;
+			}if(this.framesGameOver == 28) {
+				this.framesGameOver=0;
+				if(this.MensagemReiniciar) {
+				this.MensagemReiniciar = false;
+			}else {
+				this.MensagemReiniciar = true;
 			}
-			System.out.print("Game over");
+			if(restarGame == true) {
+				this.restarGame=false;
+				this.gamestate="NORMAL";
+				cur_level = 1;
+				String newWord = "level"+cur_level+".png";
+				Word.RestartGame(newWord);
+				
+				
+			}
+				
+				
+			}
+			
 		}
 		
 		
@@ -196,9 +220,12 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			g2.setFont(new Font("Arial", Font.BOLD, 50));
 			g2.setColor(new Color(255,0,0,cur_fade));
 			g2.drawString("VOCÊ MORREU", (WIDTH+100)/2,(HEIGTH*SCALE)/2);
+			
+			if(MensagemReiniciar) {
 			g2.setFont(new Font("Arial", Font.BOLD, 20));
 			g2.setColor(new Color(255,255, 255,cur_fade));
-			g2.drawString("<ENTER PARA RESTART>", WIDTH,(HEIGTH)+150);
+			g2.drawString("<ENTER PARA REINICIAR>", WIDTH,(HEIGTH)+150);
+			}
 			}
 		
 		bs.show();
@@ -260,6 +287,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			//System.out.println("baixo");
 		}if(e.getKeyCode()== KeyEvent.VK_X || e.getKeyCode() == KeyEvent.VK_1){
 			player.atirando = true;
+		}
+		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+			this.restarGame = true;
 		}
 		
 	}

@@ -186,6 +186,7 @@ public class Player extends Entity{
 				IsDano = false;
 			}
 		}if(Game.player.vida <= 0) {
+			Game.player.vida=0;
 			Game.gamestate = "GAMEOVER";
 			
 		}
