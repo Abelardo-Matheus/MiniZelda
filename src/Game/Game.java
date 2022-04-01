@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -46,6 +47,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	private Graphics g;
 	
 	private int cur_level = 1,Maxlevel = 3;
+	private int cur_fade = 0,Maxfade = 255;
+	private int cur_fade2 = 0,Maxfade2 = 100;
 	
 
 	public static Spritesheet spritesheet;
@@ -57,6 +60,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static List<TiroFogo> balas;
 	
 	public static Random rand;
+	
+	public static String gamestate = "NORMAL";
 	
 	public UI ui;
 	
@@ -92,6 +97,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		
 	}
 	public void tick(){
+		if(gamestate == "NORMAL") {
 		for (int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
 			if (e instanceof Player) {
@@ -113,6 +119,17 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			String newWord = "level"+cur_level+".png";
 			//System.out.println(""+newWord);
 			Word.RestartGame(newWord);
+		}
+		}else if(gamestate == "GAMEOVER") {
+			cur_fade+=3;
+			if(cur_fade > Maxfade) {
+				cur_fade=255;
+			}
+			cur_fade2+=3;
+			if(cur_fade2 > Maxfade2) {
+				cur_fade2=100;
+			}
+			System.out.print("Game over");
 		}
 		
 		
@@ -172,6 +189,18 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		g.setFont(new Font("Arial", Font.BOLD, 15));
 		g.setColor(Color.white);
 		g.drawString("Cargas", 18,468);
+		if(gamestate== "GAMEOVER") {
+			Graphics2D g2 = (Graphics2D) g;
+			g2.setColor(new Color(0,0,0,cur_fade2));
+			g2.fillRect(0, 180, WIDTH*SCALE, (HEIGTH)/2);
+			g2.setFont(new Font("Arial", Font.BOLD, 50));
+			g2.setColor(new Color(255,0,0,cur_fade));
+			g2.drawString("VOCÊ MORREU", (WIDTH+100)/2,(HEIGTH*SCALE)/2);
+			g2.setFont(new Font("Arial", Font.BOLD, 20));
+			g2.setColor(new Color(255,255, 255,cur_fade));
+			g2.drawString("<ENTER PARA RESTART>", WIDTH,(HEIGTH)+150);
+			}
+		
 		bs.show();
 
 

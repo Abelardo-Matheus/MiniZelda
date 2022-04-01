@@ -186,8 +186,7 @@ public class Player extends Entity{
 				IsDano = false;
 			}
 		}if(Game.player.vida <= 0) {
-			String level1 = "level1.png";
-			Word.RestartGame(level1);
+			Game.gamestate = "GAMEOVER";
 			
 		}
 		
