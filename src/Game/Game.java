@@ -41,7 +41,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	private boolean isRunning = true;
 	public final static int WIDTH = 240;
 	public final static  int HEIGTH = 160;
-	private final int SCALE = 3;
+	public final static int SCALE = 3;
 	public static Player player;
 
 	private Graphics g;
@@ -61,7 +61,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	
 	public static Random rand;
 	
-	public static String gamestate = "NORMAL";
+	public Menu menu;
+	
+	public static String gamestate = "MENU";
 	private boolean MensagemReiniciar = true;
 	private int framesGameOver = 0;
 	
@@ -86,7 +88,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		entities.add(player);
 		word = new Word("/level1.png");
 		 
-		
+		menu = new Menu();
 		}
 	
 	public void initFrame() {
@@ -101,6 +103,10 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		
 	}
 	public void tick(){
+		
+		
+		
+		
 		if(gamestate == "NORMAL") {
 			this.restarGame=false;
 		for (int i = 0; i < entities.size(); i++) {
@@ -125,7 +131,12 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			//System.out.println(""+newWord);
 			Word.RestartGame(newWord);
 		}
-		}else if(gamestate == "GAMEOVER") {
+		}else if(gamestate == "MENU") {
+			menu.tick();
+			
+		}
+		
+		else if(gamestate == "GAMEOVER") {
 			this.framesGameOver++;
 			cur_fade+=3;
 			if(cur_fade > Maxfade) {
@@ -226,6 +237,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			g2.setColor(new Color(255,255, 255,cur_fade));
 			g2.drawString("<ENTER PARA REINICIAR>", WIDTH,(HEIGTH)+150);
 			}
+			}if(gamestate == "MENU") {
+				menu.render(g);
+			
 			}
 		
 		bs.show();
