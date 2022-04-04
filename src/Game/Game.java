@@ -236,6 +236,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			g2.setFont(new Font("Arial", Font.BOLD, 20));
 			g2.setColor(new Color(255,255, 255,cur_fade));
 			g2.drawString("<ENTER PARA REINICIAR>", WIDTH,(HEIGTH)+150);
+			g2.setFont(new Font("Arial", Font.BOLD, 15));
+			g2.setColor(new Color(255,255, 255,cur_fade));
+			g2.drawString("<M PARA MENU>", WIDTH+70,(HEIGTH)+170);
 			}
 			}if(gamestate == "MENU") {
 				menu.render(g);
@@ -296,14 +299,40 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		if(e.getKeyCode()== KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
 			player.up=true;
 			//.out.println("cima");
-		}else if(e.getKeyCode()== KeyEvent.VK_DOWN|| e.getKeyCode() == KeyEvent.VK_S ) {
+			if(gamestate == "MENU") {
+				menu.up = true;
+			}
+		}
+		else if(e.getKeyCode()== KeyEvent.VK_DOWN|| e.getKeyCode() == KeyEvent.VK_S ) {
 			player.down=true;
 			//System.out.println("baixo");
-		}if(e.getKeyCode()== KeyEvent.VK_X || e.getKeyCode() == KeyEvent.VK_1){
+			if(gamestate == "MENU") {
+				menu.down = true;
+		}
+		}
+		
+		
+		if(e.getKeyCode()== KeyEvent.VK_X || e.getKeyCode() == KeyEvent.VK_1){
 			player.atirando = true;
+		}
+		if(e.getKeyCode() == KeyEvent.VK_M) {
+			cur_level = 1;
+			String newWord = "level"+cur_level+".png";
+			Word.RestartGame(newWord);
+			Game.gamestate = "MENU";
+			
+			
 		}
 		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 			this.restarGame = true;
+			if(gamestate == "MENU") {
+				menu.enter = true;
+			}
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			Game.gamestate = "MENU";
+			Menu.pause = true;
 		}
 		
 	}
