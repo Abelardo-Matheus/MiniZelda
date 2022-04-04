@@ -331,8 +331,11 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		}
 		
 		if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			
+			if(gamestate == "NORMAL") {
 			Game.gamestate = "MENU";
 			Menu.pause = true;
+		}
 		}
 		
 	}
